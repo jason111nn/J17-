@@ -2,6 +2,7 @@
 // 設定 CORS 標頭以允許跨來源請求（開發用途）
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST");
+
 header("Access-Control-Allow-Headers: Content-Type");
 
 // 獲取前端傳來的 JSON 資料
