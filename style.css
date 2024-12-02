@@ -48,7 +48,13 @@ main{
     display: flex;
     justify-content: center;
     background-color: #ffe39d;
-    & login{
-        
+    & #login{
+        & input{
+            background-color: #00000000;
+            border: 0;
+            border-bottom: .1em gray ridge;
+            font-size: 30px;
+
+        }
     }   
 }
