@@ -1,5 +1,6 @@
 body{
     margin: 0;
+    overflow: hidden;
     background-color: #ffebbd;   
 }
 header{
@@ -61,4 +62,26 @@ main{
 #route-map{
     width: 768px;
     
+}
+.hum-button > button{
+    border: #2f2759 2px solid;
+    background-color: rgb(255, 247, 198);
+    font-weight: 700;
+    font-size: 1em;
+}
+
+.loading{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    font-weight: 800;
+    font-size: 7em;
+
+    background-color: rgb(255, 241, 199);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#content{
+    opacity: 0;
 }

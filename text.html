@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>路網圖設計</title>
+    <style>
+        /* 路網圖容器 */
+        #route-map {
+            width: 768px;
+            margin: 20px auto;
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            font-family: Arial, sans-serif;
+        }
+
+        /* 連線樣式 */
+        .route-line {
+            position: absolute;
+            height: 4px;
+            background-color: #34d399;
+            z-index: 0;
+        }
+
+        /* 橫向連線 */
+        .route-line.horizontal {
+            width: 100px;
+        }
+
+        /* 縱向連線 */
+        .route-line.vertical {
+            width: 4px;
+            height: 100px;
+        }
+
+        /* 站點樣式 */
+        .station {
+            position: relative;
+            text-align: center;
+            z-index: 1;
+        }
+
+        /* 圓點樣式 */
+        .station-point {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #34d399;
+            margin: 0 auto 8px auto;
+        }
+
+        /* 站點名稱 */
+        .station-name {
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* 站點狀態 */
+        .station-status {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .station-status.arrived {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="route-map">
+        <!-- 第一排 -->
+        <div class="station">
+            <div class="station-status">未發車</div>
+            <div class="station-point"></div>
+            <div class="station-name">台北車站</div>
+        </div>
+        <div class="route-line horizontal"></div>
+        <div class="station">
+            <div class="station-status">C12345<br>約1分鐘</div>
+            <div class="station-point"></div>
+            <div class="station-name">台大醫院</div>
+        </div>
+        <div class="route-line horizontal"></div>
+        <div class="station">
+            <div class="station-status">C12345<br>約6分鐘</div>
+            <div class="station-point"></div>
+            <div class="station-name">中正紀念堂</div>
+        </div>
+
+        <!-- 第二排 -->
+        <div class="route-line vertical" style="left: 130px; top: 60px;"></div>
+        <div class="station">
+            <div class="station-status arrived">A12345<br>已到站</div>
+            <div class="station-point"></div>
+            <div class="station-name">大安</div>
+        </div>
+        <div class="route-line horizontal"></div>
+        <div class="station">
+            <div class="station-status">B12345<br>約1分鐘</div>
+            <div class="station-point"></div>
+            <div class="station-name">大安森林公園</div>
+        </div>
+
+        <!-- 第三排 -->
+        <div class="route-line vertical" style="left: 10px; top: 200px;"></div>
+        <div class="station">
+            <div class="station-status">A12345<br>約6分鐘</div>
+            <div class="station-point"></div>
+            <div class="station-name">信義安和</div>
+        </div>
+        <div class="route-line horizontal"></div>
+        <div class="station">
+            <div class="station-status">A12345<br>約11分鐘</div>
+            <div class="station-point"></div>
+            <div class="station-name">台北101</div>
+        </div>
+    </div>
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>路網圖設計</title>
+    <style>
+        /* 路網圖容器 */
+        #route-map {
+            width: 768px;
+            margin: 20px auto;
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            font-family: Arial, sans-serif;
+        }
+
+        /* 連線樣式 */
+        .route-line {
+            position: absolute;
+            height: 4px;
+            background-color: #34d399;
+            z-index: 0;
+        }
+
+        /* 橫向連線 */
+        .route-line.horizontal {
+            width: 100px;
+        }
+
+        /* 縱向連線 */
+        .route-line.vertical {
+            width: 4px;
+            height: 100px;
+        }
+
+        /* 站點樣式 */
+        .station {
+            position: relative;
+            text-align: center;
+            z-index: 1;
+        }
+
+        /* 圓點樣式 */
+        .station-point {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #34d399;
+            margin: 0 auto 8px auto;
+        }
+
+        /* 站點名稱 */
+        .station-name {
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* 站點狀態 */
+        .station-status {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .station-status.arrived {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="route-map">
+        <!-- 第一排 -->
+        <div class="station">
+            <div class="station-status">未發車</div>
+            <div class="station-point"></div>
+            <div class="station-name">台北車站</div>
+        </div>
+        <div class="route-line horizontal"></div>
+        <div class="station">
+            <div class="station-status">C12345<br>約1分鐘</div>
+            <div class="station-point"></div>
+            <div class="station-name">台大醫院</div>
+        </div>
+        <div class="route-line horizontal"></div>
+        <div class="station">
+            <div class="station-status">C12345<br>約6分鐘</div>
+            <div class="station-point"></div>
+            <div class="station-name">中正紀念堂</div>
+        </div>
+
+        <!-- 第二排 -->
+        <div class="route-line vertical" style="left: 130px; top: 60px;"></div>
+        <div class="station">
+            <div class="station-status arrived">A12345<br>已到站</div>
+            <div class="station-point"></div>
+            <div class="station-name">大安</div>
+        </div>
+        <div class="route-line horizontal"></div>
+        <div class="station">
+            <div class="station-status">B12345<br>約1分鐘</div>
+            <div class="station-point"></div>
+            <div class="station-name">大安森林公園</div>
+        </div>
+
+        <!-- 第三排 -->
+        <div class="route-line vertical" style="left: 10px; top: 200px;"></div>
+        <div class="station">
+            <div class="station-status">A12345<br>約6分鐘</div>
+            <div class="station-point"></div>
+            <div class="station-name">信義安和</div>
+        </div>
+        <div class="route-line horizontal"></div>
+        <div class="station">
+            <div class="station-status">A12345<br>約11分鐘</div>
+            <div class="station-point"></div>
+            <div class="station-name">台北101</div>
+        </div>
+    </div>
+</body>
+
+</html>
