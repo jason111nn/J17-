@@ -16,7 +16,7 @@
         loading...
     </div>
 
-    <header>    
+    <header>
         <div>
             <img src="./img/logo.png" alt="">
             <h1 style="font-family:'微軟正黑體';" onclick="location.href='./index.html';">台北 101 接駁專車系統</h1>
@@ -44,6 +44,17 @@
                 </div>
                 <div id="bus-link">
                     <h1>接駁車管理</h1>
+                    <button>新增</button>
+                    <table>
+                        <tr>
+                            <th>車牌</th>
+                            <th>已行駛時間</th>
+                            <th>操作</th>
+                        </tr>
+                        <tbody class="bus-box">
+
+                        </tbody>
+                    </table>
                 </div>
                 <div id="station-link">
                     <h1>站點管理</h1>
@@ -53,11 +64,13 @@
     </main>
 </body>
 <script>
-    $(document).ready(()=>{
+    // ready & login
+    $(document).ready(() => {
         veri();
+        busLoading();
         $("loginY").hide();
         $("#newveri").click(veri);
-        
+
         const logged = localStorage.getItem("user-login") === "true";
         if (logged) {
             $(".login").hide();
@@ -69,6 +82,63 @@
             $(".loginY").hide();
         }
     })
+
+    function busLoading() {
+        $.get("./api/get.php", { mode: "getBus" }, (res) => {
+            let BusData = JSON.parse(res);
+            console.log(BusData);
+
+            let busBox = $(".bus-box");
+            busBox.empty();
+
+            for (let i = 0; i < BusData.length; i++) {
+                console.log(i);
+                let code = BusData[i].bus_name;
+                let minute = BusData[i].minute;
+                let id = BusData[i].id;
+
+                console.log(code, minute);
+
+                let row = `
+                <tr>
+                    <td>${code}</td>
+                    <td>${minute} 分鐘</td>
+                    <td>
+                        <button class="edit-btn" data-id="${id}">編輯</button>
+                        <button class="delete-btn" data-id="${id}">刪除</button>
+                    </td>
+                </tr>
+            `;
+                busBox.append(row);
+            }
+            $(".edit-btn").click((e) => {
+                let id = $(e.target).data("id");
+                editBus(id);
+            });
+
+            $(".delete-btn").click((e) => {
+                let id = $(e.target).data("id");
+                deleteBus(id);
+            });
+        });
+    }
+
+    function editBus(id) {
+        alert("編輯車輛 ID: " + id);
+    }
+
+    function deleteBus(id) {
+        if (confirm("確定要刪除此車輛資料嗎？")) {
+            $.post("./api/delete.php", { id: id, mode: "deletebus" }, (res) => {
+                if (res === "success") {
+                    alert("車輛刪除成功");
+                    busLoading();
+                } else {
+                    alert("刪除失敗: " + res);
+                }
+            });
+        }
+    }
 
     function veri() {
         const code = Math.floor(1000 + Math.random() * 9000);
@@ -83,8 +153,8 @@
         const userAnswer = $("#ans").val();
         const generatedCode = $("#veri").val();
 
-        if (username == "admin" && password == "1234" && userAnswer == generatedCode ) {
-            localStorage.setItem("user-login",true);
+        if (username == "admin" && password == "1234" && userAnswer == generatedCode) {
+            localStorage.setItem("user-login", true);
             alert("登入成功");
             location.reload();
         } else {
@@ -96,17 +166,17 @@
     }
 
     function logout() {
-        localStorage.setItem("user-login",false);
+        localStorage.setItem("user-login", false);
         alert("登出成功");
         location.reload();
     }
 
-    function bus(){
+    function bus() {
         $("#bus-link").show();
         $("#station-link").hide();
     }
-    
-    function station(){
+
+    function station() {
         $("#bus-link").hide();
         $("#station-link").show();
     }

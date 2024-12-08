@@ -81,6 +81,7 @@ main{
     display: flex;
     align-items: center;
     justify-content: center;
+    position: fixed;
 }
 #content{
     opacity: 0;
