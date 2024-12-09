@@ -86,3 +86,10 @@ main{
 #content{
     opacity: 0;
 }
+.bus-box>tr>td{
+    border: #2f2759 1px solid;
+    width: 200px;
+    height: 20px;
+    font-weight: 700;
+    font-size: 10px;
+}

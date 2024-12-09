@@ -52,12 +52,16 @@
                             <th>操作</th>
                         </tr>
                         <tbody class="bus-box">
-
                         </tbody>
                     </table>
                 </div>
                 <div id="station-link">
                     <h1>站點管理</h1>
+                </div>
+                <div id="edit-link">
+                    <form onsubmit="" class="edit-box">
+                        
+                    </form>
                 </div>
             </div>
         </div>
@@ -100,23 +104,64 @@
                 console.log(code, minute);
 
                 let row = `
-            <tr>
-                <td>${code}</td>
-                <td>${minute} 分鐘</td>
-                <td>
-                    <button onclick="editBus(${id})">編輯</button>
-                    <button onclick="deleteBus(${id})">刪除</button>
-                </td>
-            </tr>
-            `;
+                    <tr>
+                        <td>${code}</td>
+                        <td>${minute} 分鐘</td>
+                        <td>
+                            <button onclick="editBus(${id})">編輯</button>
+                            <button onclick="deleteBus(${id})">刪除</button>
+                        </td>
+                    </tr>
+                `;
                 busBox.append(row);
             }
         });
     }
 
     function editBus(id) {
-        alert("編輯車輛 ID: " + id);
+    $("#bus-link").fadeOut();
+
+    $.get("./api/get.php", { id: id, mode: "geteditbus" }, (res) => {
+        let BusData = JSON.parse(res);
+        let busBox = $(".edit-box");
+        busBox.empty();
+
+        if (BusData) {
+            let code = BusData.bus_name;
+            let minute = BusData.minute;
+
+            let row = `
+                <h1>修改 ${code} 接駁車</h1>
+                <label>已行駛時間 (分鐘)</label>
+                <input type="number" id="edit-minute" value="${minute}" min="1">
+                <button type="button" onclick="submitEdit(${id})">修改</button>
+                <button type="button" onclick="exitBus()">回上頁</button>
+            `;
+            busBox.append(row);
+        } else {
+            alert("未找到該接駁車數據");
+            exitBus();
+        }
+    });
+    delete(500);
+    $("#edit-link").fadeIn();
+}
+
+function submitEdit(id) {
+    let newMinute = $("#edit-minute").val();
+
+    if (!newMinute || isNaN(newMinute) || newMinute <= 0) {
+        alert("請輸入有效的分鐘數！");
+        return;
     }
+
+    $.post("./api/update.php", { id: id, minute: newMinute, mode: "editbus" }, (res) => {
+            alert("修改成功！");
+            exitBus();
+            busLoading();
+    });
+}
+
 
     function deleteBus(id) {
         if (confirm("確定要刪除此車輛資料嗎？")) {
@@ -162,6 +207,12 @@
     function bus() {
         $("#bus-link").show();
         $("#station-link").hide();
+    }
+
+    function exitBus() {
+        $("#edit-link").fadeOut(); // 隱藏編輯區域
+        $("#bus-link").fadeIn(); // 顯示接駁車管理區域
+        $(".edit-box").empty(); // 清空編輯區域內容
     }
 
     function station() {
